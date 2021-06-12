@@ -1,30 +1,35 @@
-#include <iostream>
-#include "CubeRubiks.hpp"
+#include "cube.hpp"
+#include <vector>
 
 int main() {
-    char cube[6][3][3] = {{{'G', 'W', 'B'}, {'O', 'W', 'G'}, {'Y', 'W', 'R'}},
-                          {{'G', 'W', 'B'}, {'Y', 'B', 'B'}, {'Y', 'G', 'W'}},
-                          {{'O', 'R', 'R'}, {'O', 'O', 'Y'}, {'R', 'Y', 'W'}},
-                          {{'Y', 'G', 'W'}, {'B', 'G', 'G'}, {'G', 'B', 'B'}},
-                          {{'O', 'B', 'W'}, {'O', 'R', 'R'}, {'R', 'Y', 'O'}},
-                          {{'B', 'R', 'G'}, {'R', 'Y', 'W'}, {'O', 'O', 'Y'}}};
-    CubeRubiks cubik(cube);
-    cubik.first_step();
-    cubik.check_output();
-    cubik.cross();
-    cubik.check_output();
-    cubik.first_layer();
-    cubik.check_output();
-    cubik.middle_layer();
-    cubik.check_output();
-    cubik.yellow();
-    cubik.check_output();
-    cubik.good_yellow_cross();
-    cubik.check_output();
-    cubik.six_step();
-    cubik.check_output();
-    cubik.seven_step();
-    cubik.check_output();
+    std::vector<std::vector<std::string>> config {{"GWB", "OWG", "YWR"}, {"GWB", "YBB", "YGW"}, {"ORR", "OOY", "RYW"},
+                                                  {"YGW", "BGG", "GBB"}, {"OBW", "ORR", "RYO"}, {"BRG", "RYW", "OOY"}};
+
+    Rubik c(config);
+
+    c.first();
+    c.currentState();
+
+    c.x();
+    c.currentState();
+
+    c.firstLayer();
+    c.currentState();
+
+    c.secondLayer();
+    c.currentState();
+
+    c.thirdLayer();
+    c.currentState();
+
+    c.checkYellowX();
+    c.currentState();
+
+    c.checkCorners();
+    c.currentState();
+
+    c.turnCorners();
+    c.currentState();
 
     return 0;
 }
