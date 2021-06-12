@@ -123,45 +123,26 @@ void Rubik::LTurn(int x) {
     if (x == 0) {
         now = "WL";
         state.push_back(now);
-        if (state.size() > 1 && state[size(state) - 2] == "WR") {
-            state.pop_back();
-            state.pop_back();
-        }
     } else if (x == 1) {
         now = "BL";
         state.push_back(now);
-        if (state.size() > 1 && state[size(state) - 2] == "BR") {
-            state.pop_back();
-            state.pop_back();
-        }
+     
     } else if (x == 2) {
         now = "OL";
         state.push_back(now);
-        if (state.size() > 1 && state[size(state) - 2] == "OR") {
-            state.pop_back();
-            state.pop_back();
-        }
+      
     } else if (x == 3) {
         now = "GL";
         state.push_back(now);
-        if (state.size() > 1 && state[size(state) - 2] == "GR") {
-            state.pop_back();
-            state.pop_back();
-        }
+        
     } else if (x == 4) {
         now = "RL";
         state.push_back(now);
-        if (state.size() > 1 && state[size(state) - 2] == "RR") {
-            state.pop_back();
-            state.pop_back();
-        }
+       
     } else if (x == 5) {
         now = "YL";
         state.push_back(now);
-        if (state.size() > 1 && state[size(state) - 2] == "YR") {
-            state.pop_back();
-            state.pop_back();
-        }
+        
     }
     if (state.size() >= 4 && state[state.size() - 1] == state[state.size() - 2] &&
         state[state.size() - 3] == state[state.size() - 4] &&
@@ -353,11 +334,7 @@ void Rubik::T180(int x) {
 void Rubik::first() {
     int p = 0, count = 0;
     while (p != 4) {
-        if (count > 50) {
-            std::cout << "Error: count > 50";
-            return;
-        }
-
+        
         if ((colors[5][0][1] == 'W') && (colors[5][1][0] == 'W') && (colors[5][2][1] == 'W') &&
             (colors[5][1][2] == 'W')) {
             p = 4;
