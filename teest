@@ -1,0 +1,96 @@
+while (true)
+            {
+                Console.WriteLine("ENTER information:");
+                Console.WriteLine("Name: ");
+                string nameClient = Console.ReadLine();
+                Console.WriteLine("Surname: ");
+                string surnameClient = Console.ReadLine();
+                Console.WriteLine("Address: ");
+                string address = Console.ReadLine();
+                Console.WriteLine("Passport Number: ");
+                int passportNumber = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Id account: ");
+                while (true)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("----------------------------------------------------------------------");
+                    Console.WriteLine("CHOOSE number : ");
+                    Console.WriteLine("1)Open a debit account  ");
+                    Console.WriteLine("2)Open a deposit account  ");
+                    Console.WriteLine("3)Open a deposit account  ");
+                    Console.WriteLine("4)Put money to account ");
+                    Console.WriteLine("5)Withdraw Money ");
+                    Console.WriteLine("6)Money transfer ");
+                    Console.WriteLine("7)Сhange user ");
+                    var ans = Convert.ToInt32(Console.ReadLine());
+                    if (ans == 7)
+                    {
+                        break;
+                    }
+
+                    if (ans == 1 || ans == 2 || ans == 3)
+                    {
+                        var client3 = new ClientDirector(new ClientBuilder(), nameClient, surnameClient)
+                            .ClientBuilder
+                            .AddAdress(address)
+                            .AddPassportNumber(passportNumber).MakeClient();
+                        Console.WriteLine("Сlient is registered. ");
+                        Console.WriteLine();
+                        if (ans == 1)
+                        {
+                            var account = newCentralBank.OpenAccount(client3, bank1.OpenDebitAccount(), bank1);
+                            Console.WriteLine("Debit account created. Amount on account: 0 . ID account {0}", account.AccountClient.ID);
+                            Console.WriteLine();
+                        }
+                        else if (ans == 2)
+                        {
+                            Console.WriteLine("Enter the initial deposit amount: ");
+                            var sum = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("Enter the accumulation period: ");
+                            var period = Convert.ToInt32(Console.ReadLine());
+                            var account = newCentralBank.OpenAccount(client3, bank1.OpenDepositAccount(sum, period), bank1);
+                            Console.WriteLine("Deposit account created. Amount on account: {0} ID account {1}", sum, account.AccountClient.ID);
+                            Console.WriteLine();
+                        }
+                        else if (ans == 3)
+                        {
+                            var account = newCentralBank.OpenAccount(client3, bank1.OpenCreditAccount(20000), bank1);
+                            Console.WriteLine("Credit account created. Amount on account: 0 ID account {0}", account.AccountClient.ID);
+                            Console.WriteLine();
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Enter ID account ");
+                        var id = Convert.ToInt32(Console.ReadLine());
+                        var clientData = newCentralBank.FindAccountById(id);
+                        if (ans == 4)
+                        {
+                            Console.WriteLine("Enter sum to put money");
+                            var sum = Convert.ToInt32(Console.ReadLine());
+                            bank1.PutMoneyToAccount(clientData, sum);
+                        }
+                        else if (ans == 5)
+                        {
+                            Console.WriteLine("Enter sum to withdraw money");
+                            var sum = Convert.ToInt32(Console.ReadLine());
+                            bank1.WithdrawMoney(clientData, sum);
+                        }
+                        else if (ans == 6)
+                        {
+                            Console.WriteLine("Enter ID another account");
+                            var id2 = Convert.ToInt32(Console.ReadLine());
+                            var clientData2 = newCentralBank.FindAccountById(id2);
+                            Console.WriteLine("Enter sum to transfer");
+                            var sum = Convert.ToInt32(Console.ReadLine());
+                            bank1.TransferMoney(clientData, clientData2, sum);
+                        }
+
+                        break;
+                    }
+                }
+
+                break;
+            }
+
+            Console.WriteLine("All good: ");
